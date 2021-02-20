@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class FirebaseService {
 
-    private Map<String, Object> fields;
 
     public String saveUserDetails(Person person) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("users").document(person.getName()).set(fields);
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("users").document(person.getName()).set(person);
         return collectionsApiFuture.get().getUpdateTime().toString();
     }
 }
