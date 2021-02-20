@@ -17,24 +17,24 @@ public class UserController {
 
     @Autowired
     FirebaseService firebaseService;
-    
+
     @GetMapping("/getUserDetails")
-    public String getUserDetails(@RequestHeader String name) {
-        return "Solicitud del usuario: " + name;
+    public Person getUserDetails(@RequestHeader String name) throws InterruptedException, ExecutionException {
+        return firebaseService.getUserDetails(name);
     }
 
     @PostMapping("/createUser")
     public String createNewUser(@RequestBody Person person) throws InterruptedException, ExecutionException {
-        return firebaseService.saveUserDetails(person) ;
+        return firebaseService.saveUserDetails(person);
     }
 
     @PutMapping("/updateUser")
-    public String updateUser(@RequestBody Person person) {
-        return "Usuario Actualizado: " + person.getName() ;
+    public String updateUser(@RequestBody Person person) throws InterruptedException, ExecutionException {
+        return firebaseService.updateUserDetails(person);
     }
 
     @DeleteMapping("/deleteUser")
-    public String deleteUser(@RequestBody Person person) {
-        return "Usuario Eliminado: " + person.getName();
+    public String deleteUser(@RequestHeader String name) {
+        return firebaseService.deleteUser(name);
     }
 }
